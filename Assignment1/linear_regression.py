@@ -12,11 +12,23 @@ class LinearRegression():
         self.train_accuracies = []
 
     def _compute_gradients(self, X, y):
-        rows = X.shape[0]
+        """
+        Compute gradients by using Mean Squared Error (MSE) as the loss function.
+
+        :param X:
+        :param y:
+        :return: gradient to the Weights, gradient to the bias
+        """
+        N = X.shape[0]
         y_pred = X @ self.weights + self.bias
-        error = y_pred - y
-        grad_w = (2 / rows) * (X.T @ error)
-        grad_b = (2 / rows) * np.sum(error)
+        residual = y - y_pred
+
+        # MSE: Mean Square error
+        # L = 1 / N * (y - y_pred) ** 2
+        # dLdw = 2 / N * (y - (wX + b))) * (-X) = - (2 / N) * (X * (y - (wX + b)))
+        # dLdb = 2 / N * (y - (wX + b))) * (-1) = - (2 / N) * (y - (wX + b))
+        grad_w = -(2 / N) * (X.T @ residual)
+        grad_b = -(2 / N) * np.sum(residual)
         return grad_w, grad_b
 
     def _update_parameters(self, grad_w, grad_b):
