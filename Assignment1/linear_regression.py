@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class LinearRegression():
+class LinearRegression:
 
     def __init__(self, learning_rate=0.0001, epochs=500):
         self.learning_rate = learning_rate
@@ -15,10 +15,13 @@ class LinearRegression():
         """
         Compute gradients by using Mean Squared Error (MSE) as the loss function.
 
-        :param X:
-        :param y:
-        :return: gradient to the Weights, gradient to the bias
+        :param X: Feature matrix (array<m,n>) of floats with
+                m rows (#samples) and n columns (#features)
+        :param y: A vector (array<m>) of floats
+
+        :return: Gradient to the Weights, gradient to the bias
         """
+
         N = X.shape[0]
         y_pred = X @ self.weights + self.bias
         residual = y - y_pred
@@ -27,11 +30,19 @@ class LinearRegression():
         # L = 1 / N * (y - y_pred) ** 2
         # dLdw = 2 / N * (y - (wX + b))) * (-X) = - (2 / N) * (X * (y - (wX + b)))
         # dLdb = 2 / N * (y - (wX + b))) * (-1) = - (2 / N) * (y - (wX + b))
+
         grad_w = -(2 / N) * (X.T @ residual)
         grad_b = -(2 / N) * np.sum(residual)
         return grad_w, grad_b
 
     def _update_parameters(self, grad_w, grad_b):
+        """
+        Updates weights and bias for the model
+
+        :param grad_w: Gradient matrix for the weights
+        :param grad_b: Gradient scalar for the bias
+        """
+
         self.weights -= self.learning_rate * grad_w
         self.bias -= self.learning_rate * grad_b
 
@@ -39,10 +50,9 @@ class LinearRegression():
         """
         Estimates parameters for the classifier
 
-        Args:
-            X (array<m,n>): a matrix of floats with
+        :param X: Feature matrix (array<m,n>) of floats with
                 m rows (#samples) and n columns (#features)
-            y (array<m>): a vector of floats
+        :param y: Vector (array<m>) of floats
         """
 
         self.weights = np.zeros(X.shape[1])
@@ -59,12 +69,9 @@ class LinearRegression():
 
         Note: should be called after .fit()
 
-        Args:
-            X (array<m,n>): a matrix of floats with
+        :param X: Feature matrix of floats with
                 m rows (#samples) and n columns (#features)
-
-        Returns:
-            A length m array of floats
+        :return: Array of length m floats
         """
 
         lin_model = np.matmul(X, self.weights) + self.bias
