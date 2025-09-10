@@ -1,2 +1,2 @@
-# TDT4192-Assignments
-Assignment solutions for TDT4192 (Introduction to Machine Learning)
+# TDT4172-Assignments
+Assignment solutions for TDT4172 (Introduction to Machine Learning)
