@@ -57,6 +57,7 @@ class LogisticRegression:
         # BCE: Binary Cross-Entropy
         # L = -(1 / N) * Σ [ y * log(y_pred) + (1 - y) * log(1 - y_pred) ]
         # where: y_pred = σ(z), z = Xw + b, σ(z) = 1 / (1 + e ^ {-z})
+        # Using the definition from lecture 28.08.25: dLdw = (y_pred - y)*x, dLdb = (y_pred - y)
         # dLdw = (1 / N) * X * (y_pred - y)
         # dLdb = (1 / N) * Σ (y_pred - y)
 
@@ -118,3 +119,14 @@ class LogisticRegression:
         lin_model = np.matmul(x, self.weights) + self.bias
         y_pred = self._sigmoid(lin_model)
         return [1 if _y > 0.5 else 0 for _y in y_pred]
+
+    def predict_proba(self, x):
+        """
+        Generates probabilities for given input features.
+
+        :param x: Feature matrix (array<m,n>)
+        :return: Probabilities (array<m>)
+        """
+        lin_model = np.matmul(x, self.weights) + self.bias
+        y_pred = self._sigmoid(lin_model)
+        return y_pred

@@ -27,7 +27,7 @@ class LinearRegression:
         residual = y - y_pred
 
         # MSE: Mean Square error
-        # L = 1 / N * (y - y_pred) ** 2
+        # L = 1 / N * Σ [(y - y_pred) ** 2]
         # dLdw = 2 / N * (y - (wX + b))) * (-X) = - (2 / N) * (X * (y - (wX + b)))
         # dLdb = 2 / N * (y - (wX + b))) * (-1) = - (2 / N) * (y - (wX + b))
 
